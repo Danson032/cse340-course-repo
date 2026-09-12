@@ -5,36 +5,40 @@ import path from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
+const port = process.env.PORT || 3000;
+const nodeEnvironment = process.env.NODE_ENV?.toLowerCase() || "production";
 
 /**
  * Configure Express middleware
  */
 
-// Serve static files from the public directory
 app.use(express.static(path.join(__dirname, "public")));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 /**
  * Routes
  */
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "src/views/home.html"));
+app.get("/", async (request, response) => {
+  response.render("home", { pageTitle: "Home" });
 });
 
-app.get("/organizations", (req, res) => {
-  res.sendFile(path.join(__dirname, "src/views/organizations.html"));
+app.get("/organizations", async (request, response) => {
+  response.render("organizations", { pageTitle: "Organizations" });
 });
 
-app.get("/projects", (req, res) => {
-  res.sendFile(path.join(__dirname, "src/views/projects.html"));
+app.get("/projects", async (request, response) => {
+  response.render("projects", { pageTitle: "Projects" });
 });
 
-// Define the application environment
-const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "production";
-
-// Define the port number the server will listen on
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server is running at http://127.0.0.1:${PORT}`);
-  console.log(`Environment: ${NODE_ENV}`);
+app.get("/categories", async (request, response) => {
+  response.render("categories", { pageTitle: "Categories" });
 });
+
+const startServer = async () => {
+  await app.listen(port);
+  console.log(`Server is running at http://127.0.0.1:${port}`);
+  console.log(`Environment: ${nodeEnvironment}`);
+};
+
+startServer();

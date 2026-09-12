@@ -1,0 +1,418 @@
+:root {
+  --ink: #173042;
+  --muted: #526875;
+  --paper: #f7f4ed;
+  --surface: #ffffff;
+  --teal: #0b6b67;
+  --tealDark: #084d4b;
+  --coral: #d85b45;
+  --gold: #e5b45b;
+  --line: #d8e1dd;
+  --shadow: 0 16px 36px rgba(23, 48, 66, 0.09);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 0;
+  margin: 10px;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+.brand,
+.navList {
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+}
+
+h1,
+h2 {
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+a {
+  color: var(--tealDark);
+}
+
+a:focus-visible,
+.button:focus-visible {
+  outline: 3px solid var(--coral);
+  outline-offset: 4px;
+}
+
+.siteHeader {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--line);
+  background: rgba(247, 244, 237, 0.96);
+}
+
+.headerInner,
+.pageContent,
+.siteFooter {
+  width: min(1120px, calc(100% - 2.5rem));
+  margin: 0 auto;
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 82px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--ink);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brandMark {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  color: var(--surface);
+  background: var(--teal);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+.navList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.35rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.navList a {
+  display: block;
+  padding: 0.5rem 0;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.navList a:hover {
+  color: var(--coral);
+}
+
+.pageContent {
+  min-height: calc(100vh - 154px);
+  padding: 5rem 0 6rem;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  align-items: center;
+  gap: 5rem;
+  padding-bottom: 6rem;
+}
+
+.eyebrow,
+.projectTag,
+.categoryNumber {
+  color: var(--coral);
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.hero h1,
+.pageIntro h1 {
+  max-width: 700px;
+  margin-bottom: 1.5rem;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+}
+
+.heroLead,
+.pageIntro > p:last-child {
+  max-width: 620px;
+  color: var(--muted);
+  font-size: 1.2rem;
+}
+
+.heroImageWrap {
+  display: grid;
+  min-height: 340px;
+  place-items: center;
+  padding: 2rem;
+  background: var(--gold);
+}
+
+.heroImage {
+  display: block;
+  width: min(100%, 320px);
+  max-width: 100%;
+  height: auto;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.15rem;
+  border: 2px solid var(--teal);
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.buttonPrimary {
+  color: var(--surface);
+  background: var(--teal);
+}
+
+.buttonPrimary:hover {
+  background: var(--tealDark);
+}
+
+.buttonSecondary {
+  color: var(--tealDark);
+  background: transparent;
+}
+
+.buttonSecondary:hover {
+  color: var(--surface);
+  background: var(--teal);
+}
+
+.introSection {
+  max-width: 760px;
+  padding-top: 3rem;
+  border-top: 1px solid var(--line);
+}
+
+.introSection h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.introSection p:last-child {
+  max-width: 620px;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.pageIntro {
+  margin-bottom: 3rem;
+}
+
+.pageIntro h1 {
+  max-width: 820px;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.organizationGrid,
+.projectGrid,
+.categoryGrid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.organizationGrid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.organizationCard,
+.projectCard,
+.categoryCard {
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.organizationCard {
+  overflow: hidden;
+}
+
+.organizationCard img {
+  display: block;
+  width: 100%;
+  height: 190px;
+  object-fit: contain;
+  padding: 1.5rem;
+  background: #e8efeb;
+}
+
+.organizationCard > div,
+.projectCard,
+.categoryCard {
+  padding: 1.5rem;
+}
+
+.organizationCard > div {
+  min-width: 0;
+}
+
+.organizationCard h2,
+.projectCard h2,
+.categoryCard h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.35rem;
+}
+
+.organizationCard p,
+.projectCard p,
+.categoryCard p {
+  margin-bottom: 1rem;
+  color: var(--muted);
+}
+
+.organizationCard a,
+.textLink {
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.projectGrid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.projectCard {
+  border-top: 5px solid var(--teal);
+}
+
+.projectTag {
+  margin-bottom: 1.2rem;
+}
+
+.textLink {
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.categoryGrid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.categoryCard {
+  min-height: 220px;
+  border-top: 5px solid var(--gold);
+}
+
+.categoryNumber {
+  display: block;
+  margin-bottom: 2.5rem;
+  color: var(--teal);
+}
+
+.siteFooter {
+  padding: 1.5rem 0 2.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 800px) {
+  .headerInner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 0;
+  }
+
+  .navList {
+    justify-content: flex-start;
+  }
+
+  .pageContent {
+    padding-top: 3.5rem;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-bottom: 4rem;
+  }
+
+  .organizationGrid,
+  .projectGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .categoryGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .headerInner,
+  .pageContent,
+  .siteFooter {
+    width: min(100% - 1.5rem, 1120px);
+  }
+
+  .brandText {
+    font-size: 0.95rem;
+  }
+
+  .heroImageWrap {
+    min-height: 240px;
+    padding: 1.25rem;
+  }
+
+  .organizationCard > div,
+  .projectCard,
+  .categoryCard {
+    padding: 1.25rem;
+  }
+
+  .siteFooter {
+    padding-bottom: 1.5rem;
+  }
+
+  .navList {
+    gap: 0.25rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .hero h1,
+  .pageIntro h1 {
+    font-size: 2.55rem;
+  }
+
+  .organizationGrid,
+  .projectGrid,
+  .categoryGrid {
+    grid-template-columns: 1fr;
+  }
+}

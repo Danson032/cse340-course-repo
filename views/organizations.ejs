@@ -1,0 +1,39 @@
+<%- include("header", { pageTitle: pageTitle }) %>
+  <main class="pageContent">
+      <section class="pageIntro" aria-labelledby="organizationsHeading">
+        <p class="eyebrow">Our partners</p>
+        <h1 id="organizationsHeading">Organizations doing good work.</h1>
+        <p>
+          Explore trusted community partners and find a cause that fits your
+          time, skills, and interests.
+        </p>
+      </section>
+
+      <section class="organizationGrid" aria-label="Partner organizations">
+        <article class="organizationCard">
+          <img src="/images/brightfuture-logo.png" alt="BrightFuture Builders logo" />
+          <div>
+            <h2>BrightFuture Builders</h2>
+            <p>Creates safe, welcoming spaces for families and neighborhoods.</p>
+            <a href="mailto:info@brightfuture.org">info@brightfuture.org</a>
+          </div>
+        </article>
+        <article class="organizationCard">
+          <img src="/images/greenharvest-logo.png" alt="GreenHarvest Growers logo" />
+          <div>
+            <h2>GreenHarvest Growers</h2>
+            <p>Grows fresh food and sustainable habits for local communities.</p>
+            <a href="mailto:contact@greenharvest.org">contact@greenharvest.org</a>
+          </div>
+        </article>
+        <article class="organizationCard">
+          <img src="/images/unityserve-logo.png" alt="UnityServe Volunteers logo" />
+          <div>
+            <h2>UnityServe Volunteers</h2>
+            <p>Brings neighbors together through hands-on service projects.</p>
+            <a href="mailto:hello@unityserve.org">hello@unityserve.org</a>
+          </div>
+        </article>
+      </section>
+    </main>
+<%- include("footer") %>

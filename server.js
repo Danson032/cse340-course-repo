@@ -1,6 +1,9 @@
 import express from "express";
 import { fileURLToPath } from "url";
 import path from "path";
+import { getAllCategories } from "./src/models/categories.js";
+import { getAllOrganizations } from "./src/models/organizations.js";
+import { getAllProjects } from "./src/models/projects.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,15 +27,36 @@ app.get("/", async (request, response) => {
 });
 
 app.get("/organizations", async (request, response) => {
-  response.render("organizations", { pageTitle: "Organizations" });
+  try {
+    const organizations = await getAllOrganizations();
+    response.render("organizations", {
+      pageTitle: "Organizations",
+      organizations,
+    });
+  } catch (error) {
+    console.error("Error loading organizations:", error);
+    response.status(500).send("Unable to load organizations.");
+  }
 });
 
 app.get("/projects", async (request, response) => {
-  response.render("projects", { pageTitle: "Projects" });
+  try {
+    const projects = await getAllProjects();
+    response.render("projects", { pageTitle: "Projects", projects });
+  } catch (error) {
+    console.error("Error loading projects:", error);
+    response.status(500).send("Unable to load projects.");
+  }
 });
 
 app.get("/categories", async (request, response) => {
-  response.render("categories", { pageTitle: "Categories" });
+  try {
+    const categories = await getAllCategories();
+    response.render("categories", { pageTitle: "Categories", categories });
+  } catch (error) {
+    console.error("Error loading categories:", error);
+    response.status(500).send("Unable to load categories.");
+  }
 });
 
 const startServer = async () => {

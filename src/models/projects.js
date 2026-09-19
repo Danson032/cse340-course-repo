@@ -7,6 +7,7 @@ export const getAllProjects = async () => {
       p.project_name,
       p.project_description,
       p.project_date,
+      p.location,
       p.organization_id,
       o.organization_name
     FROM projects p

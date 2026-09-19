@@ -1,20 +1,31 @@
 <%- include("header", { pageTitle: pageTitle }) %>
-  <main class="pageContent">
-      <section class="pageIntro" aria-labelledby="projectsHeading">
-        <p class="eyebrow">Get involved</p>
-        <h1 id="projectsHeading"><%= pageTitle %></h1>
-        <p>Choose a practical way to show up for your community.</p>
-      </section>
 
-      <section class="projectGrid" aria-label="Upcoming service projects">
-        <% projects.forEach((project) => { %>
-          <article class="projectCard">
-            <p class="projectTag"><%= project.organization_name %></p>
-            <h2><%= project.project_name %></h2>
-            <p><%= project.project_description %></p>
-            <a class="textLink" href="/categories">View category <span aria-hidden="true">&rarr;</span></a>
-          </article>
-        <% }); %>
-      </section>
-    </main>
+<main class="pageContent">
+  <section class="pageIntro" aria-labelledby="projectsHeading">
+    <p class="eyebrow">Get involved</p>
+    <h1 id="projectsHeading"><%= pageTitle %></h1>
+    <p>Choose a practical way to show up for your community.</p>
+  </section>
+
+  <section class="projectGrid" aria-label="Upcoming service projects">
+    <% projects.forEach((project) => { %>
+      <article class="projectCard">
+        <p class="projectTag"><%= project.organization_name %></p>
+
+        <h2><%= project.project_name %></h2>
+
+        <p><%= project.project_description %></p>
+
+        <p>
+          <strong>Location:</strong> <%= project.location %>
+        </p>
+
+        <a class="textLink" href="/categories">
+          View category <span aria-hidden="true">&rarr;</span>
+        </a>
+      </article>
+    <% }); %>
+  </section>
+</main>
+
 <%- include("footer") %>

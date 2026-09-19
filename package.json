@@ -16,7 +16,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "node server.js"
+    "start": "node server.js",
+    "db:setup": "node scripts/setup-db.js"
   },
   "dependencies": {
     "dotenv": "^18.0.0",

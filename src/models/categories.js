@@ -2,7 +2,11 @@ import pool from "../db.js";
 
 export const getAllCategories = async () => {
   const result = await pool.query(
-    "SELECT category_id, category_name FROM categories ORDER BY category_name ASC",
+    `SELECT
+      category_id,
+      category_name
+    FROM categories
+    ORDER BY category_name ASC`,
   );
 
   return result.rows;
@@ -10,7 +14,11 @@ export const getAllCategories = async () => {
 
 export const getCategoryById = async (categoryId) => {
   const result = await pool.query(
-    "SELECT category_id, category_name FROM categories WHERE category_id = $1",
+    `SELECT
+      category_id,
+      category_name
+    FROM categories
+    WHERE category_id = $1`,
     [categoryId],
   );
 
@@ -19,11 +27,14 @@ export const getCategoryById = async (categoryId) => {
 
 export const getCategoriesByProjectId = async (projectId) => {
   const result = await pool.query(
-    `SELECT c.category_id, c.category_name
-     FROM categories c
-     INNER JOIN project_categories pc ON pc.category_id = c.category_id
-     WHERE pc.project_id = $1
-     ORDER BY c.category_name ASC`,
+    `SELECT
+      c.category_id,
+      c.category_name
+    FROM categories c
+    INNER JOIN project_categories pc
+      ON pc.category_id = c.category_id
+    WHERE pc.project_id = $1
+    ORDER BY c.category_name ASC`,
     [projectId],
   );
 
@@ -41,8 +52,10 @@ export const getProjectsByCategoryId = async (categoryId) => {
       p.organization_id,
       o.organization_name
     FROM projects p
-    INNER JOIN project_categories pc ON pc.project_id = p.project_id
-    INNER JOIN organizations o ON o.organization_id = p.organization_id
+    INNER JOIN project_categories pc
+      ON pc.project_id = p.project_id
+    INNER JOIN organizations o
+      ON o.organization_id = p.organization_id
     WHERE pc.category_id = $1
     ORDER BY p.project_date ASC`,
     [categoryId],

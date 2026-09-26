@@ -1,5 +1,8 @@
 import express from "express";
-import { listOrganizations, showOrganization } from "../controllers/organizationsController.js";
+import {
+    listOrganizations,
+    showOrganization,
+} from "../controllers/organizationsController.js";
 
 const router = express.Router();
 

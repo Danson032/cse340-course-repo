@@ -1,40 +1,71 @@
 <%- include("header", { pageTitle: pageTitle }) %>
 
   <main class="pageContent">
+
     <section class="pageIntro" aria-labelledby="projectsHeading">
+
       <p class="eyebrow">Get involved</p>
+
       <h1 id="projectsHeading">
         <%= pageTitle %>
       </h1>
-      <p>Choose a practical way to show up for your community.</p>
+
+      <p>
+        Choose a practical way to show up for your community.
+      </p>
+
     </section>
 
     <section class="projectGrid" aria-label="Upcoming service projects">
-      <% projects.forEach((project)=> { %>
-        <article class="projectCard">
-          <p class="projectTag"><a href="/organization/<%= project.organization_id %>">
-              <%= project.organization_name %>
-            </a></p>
 
-          <h2><a href="/project/<%= project.project_id %>">
-              <%= project.project_name %>
-            </a></h2>
+      <% if (projects.length===0) { %>
 
-          <p>
-            <%= project.project_description %>
-          </p>
+        <p>No upcoming projects are currently available.</p>
 
-          <p>
-            <strong>Location:</strong>
-            <%= project.location %>
-          </p>
+        <% } %>
 
-          <a class="textLink" href="/project/<%= project.project_id %>">
-            View project <span aria-hidden="true">&rarr;</span>
-          </a>
-        </article>
-        <% }); %>
+          <% projects.forEach((project)=> { %>
+
+            <article class="projectCard">
+
+              <p class="projectTag">
+
+                <a href="/organization/<%= project.organization_id %>">
+                  <%= project.organization_name %>
+                </a>
+
+              </p>
+
+              <h2>
+                <a href="/project/<%= project.project_id %>">
+                  <%= project.project_name %>
+                </a>
+              </h2>
+
+              <p>
+                <%= project.project_description %>
+              </p>
+
+              <p>
+                <strong>Date:</strong>
+                <%= project.project_date ? new Date(project.project_date).toDateString() : "TBA" %>
+              </p>
+
+              <p>
+                <strong>Location:</strong>
+                <%= project.location %>
+              </p>
+
+              <a class="textLink" href="/project/<%= project.project_id %>">
+                View project <span aria-hidden="true">&rarr;</span>
+              </a>
+
+            </article>
+
+            <% }); %>
+
     </section>
+
   </main>
 
   <%- include("footer") %>

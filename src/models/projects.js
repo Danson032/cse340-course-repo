@@ -12,8 +12,7 @@ export const getAllProjects = async () => {
       o.organization_name
     FROM projects p
     INNER JOIN organizations o ON o.organization_id = p.organization_id
-    ORDER BY p.project_date ASC
-    LIMIT 5`,
+    ORDER BY p.project_date ASC`,
   );
 
   return result.rows;

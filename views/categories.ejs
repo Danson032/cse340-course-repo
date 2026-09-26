@@ -1,19 +1,25 @@
 <%- include("header", { pageTitle: pageTitle }) %>
   <main class="pageContent">
-      <section class="pageIntro" aria-labelledby="categoriesHeading">
-        <p class="eyebrow">Find your focus</p>
-        <h1 id="categoriesHeading"><%= pageTitle %></h1>
-        <p>Browse service opportunities by the kind of impact you want to make.</p>
-      </section>
+    <section class="pageIntro" aria-labelledby="categoriesHeading">
+      <p class="eyebrow">Find your focus</p>
+      <h1 id="categoriesHeading">
+        <%= pageTitle %>
+      </h1>
+      <p>Browse service opportunities by the kind of impact you want to make.</p>
+    </section>
 
-      <section class="categoryGrid" aria-label="Service categories">
-        <% categories.forEach((category, index) => { %>
-          <article class="categoryCard">
-            <span class="categoryNumber"><%= String(index + 1).padStart(2, "0") %></span>
-            <h2><%= category.category_name %></h2>
-            <p>Explore service opportunities connected to <%= category.category_name.toLowerCase() %>.</p>
-          </article>
+    <section class="categoryGrid" aria-label="Service categories">
+      <% categories.forEach((category, index)=> { %>
+        <article class="categoryCard">
+          <span class="categoryNumber">
+            <%= String(index + 1).padStart(2, "0" ) %>
+          </span>
+          <h2><a href="/category/<%= category.category_id %>">
+              <%= category.category_name %>
+            </a></h2>
+          <p>Explore service opportunities connected to <%= category.category_name.toLowerCase() %>.</p>
+        </article>
         <% }); %>
-      </section>
-    </main>
-<%- include("footer") %>
+    </section>
+  </main>
+  <%- include("footer") %>

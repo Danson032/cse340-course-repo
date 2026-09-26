@@ -1,0 +1,37 @@
+<%- include("header", { pageTitle: pageTitle }) %>
+    <main class="pageContent">
+        <section class="pageIntro" aria-labelledby="projectHeading">
+            <p class="eyebrow">Project</p>
+            <h1 id="projectHeading">
+                <%= project.project_name %>
+            </h1>
+            <p>
+                <%= project.project_description %>
+            </p>
+        </section>
+
+        <section class="projectDetails">
+            <p><strong>Date:</strong>
+                <%= project.project_date_display ? project.project_date_display : 'TBA' %>
+            </p>
+            <p><strong>Location:</strong>
+                <%= project.location %>
+            </p>
+
+            <p>
+                <strong>Partner:</strong>
+                <a href="/organization/<%= project.organization_id %>">
+                    <%= project.organization_name %>
+                </a>
+            </p>
+
+            <div class="categoryTags" aria-label="Project categories">
+                <% categories.forEach((cat)=> { %>
+                    <a class="categoryTag" href="/category/<%= cat.category_id %>">
+                        <%= cat.category_name %>
+                    </a>
+                    <% }); %>
+            </div>
+        </section>
+    </main>
+    <%- include("footer") %>

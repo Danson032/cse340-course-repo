@@ -1,25 +1,34 @@
 <%- include("header", { pageTitle: pageTitle }) %>
   <main class="pageContent">
-      <section class="pageIntro" aria-labelledby="organizationsHeading">
-        <p class="eyebrow">Our partners</p>
-        <h1 id="organizationsHeading"><%= pageTitle %></h1>
-        <p>
-          Explore trusted community partners and find a cause that fits your
-          time, skills, and interests.
-        </p>
-      </section>
+    <section class="pageIntro" aria-labelledby="organizationsHeading">
+      <p class="eyebrow">Our partners</p>
+      <h1 id="organizationsHeading">
+        <%= pageTitle %>
+      </h1>
+      <p>
+        Explore trusted community partners and find a cause that fits your
+        time, skills, and interests.
+      </p>
+    </section>
 
-      <section class="organizationGrid" aria-label="Partner organizations">
-        <% organizations.forEach((organization) => { %>
-          <article class="organizationCard">
-            <img src="/images/<%= organization.organization_name.toLowerCase().split(/\s+/)[0] %>-logo.png" alt="<%= organization.organization_name %> logo" />
-            <div>
-              <h2><%= organization.organization_name %></h2>
-              <p><%= organization.organization_description %></p>
-              <a href="mailto:<%= organization.email %>"><%= organization.email %></a>
-            </div>
-          </article>
+    <section class="organizationGrid" aria-label="Partner organizations">
+      <% organizations.forEach((organization)=> { %>
+        <article class="organizationCard">
+          <img src="/images/<%= organization.organization_name.toLowerCase().split(/\s+/)[0] %>-logo.png"
+            alt="<%= organization.organization_name %> logo" />
+          <div>
+            <h2><a href="/organization/<%= organization.organization_id %>">
+                <%= organization.organization_name %>
+              </a></h2>
+            <p>
+              <%= organization.organization_description %>
+            </p>
+            <a href="mailto:<%= organization.email %>">
+              <%= organization.email %>
+            </a>
+          </div>
+        </article>
         <% }); %>
-      </section>
-    </main>
-<%- include("footer") %>
+    </section>
+  </main>
+  <%- include("footer") %>

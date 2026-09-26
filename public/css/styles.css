@@ -11,6 +11,36 @@
   --shadow: 0 16px 36px rgba(23, 48, 66, 0.09);
 }
 
+/* Project detail spacing and category tag styles */
+.projectDetails {
+  padding: 1rem 0;
+}
+
+.categoryTags {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.categoryTag {
+  display: inline-block;
+  padding: 0.35rem 0.6rem;
+  background: var(--teal);
+  color: var(--surface);
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.categoryTag:hover,
+.categoryTag:focus {
+  background: var(--tealDark);
+  outline: 3px solid var(--coral);
+  outline-offset: 3px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -159,7 +189,7 @@ a:focus-visible,
 }
 
 .heroLead,
-.pageIntro > p:last-child {
+.pageIntro>p:last-child {
   max-width: 620px;
   color: var(--muted);
   font-size: 1.2rem;
@@ -272,13 +302,13 @@ a:focus-visible,
   background: #e8efeb;
 }
 
-.organizationCard > div,
+.organizationCard>div,
 .projectCard,
 .categoryCard {
   padding: 1.5rem;
 }
 
-.organizationCard > div {
+.organizationCard>div {
   min-width: 0;
 }
 
@@ -375,6 +405,7 @@ a:focus-visible,
 }
 
 @media (max-width: 520px) {
+
   .headerInner,
   .pageContent,
   .siteFooter {
@@ -390,7 +421,7 @@ a:focus-visible,
     padding: 1.25rem;
   }
 
-  .organizationCard > div,
+  .organizationCard>div,
   .projectCard,
   .categoryCard {
     padding: 1.25rem;

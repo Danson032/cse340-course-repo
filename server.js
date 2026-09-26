@@ -1,9 +1,9 @@
 import express from "express";
 import { fileURLToPath } from "url";
 import path from "path";
-import { getAllCategories } from "./src/models/categories.js";
-import { getAllOrganizations } from "./src/models/organizations.js";
-import { getAllProjects } from "./src/models/projects.js";
+import categoriesRouter from "./src/routes/categories.js";
+import organizationsRouter from "./src/routes/organizations.js";
+import projectsRouter from "./src/routes/projects.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,38 +25,20 @@ app.set("views", path.join(__dirname, "views"));
 app.get("/", async (request, response) => {
   response.render("home", { pageTitle: "Home" });
 });
+// mount routers
+app.use(categoriesRouter);
+app.use(organizationsRouter);
+app.use(projectsRouter);
 
-app.get("/organizations", async (request, response) => {
-  try {
-    const organizations = await getAllOrganizations();
-    response.render("organizations", {
-      pageTitle: "Organizations",
-      organizations,
-    });
-  } catch (error) {
-    console.error("Error loading organizations:", error);
-    response.status(500).send("Unable to load organizations.");
-  }
+// 404 handler
+app.use((req, res) => {
+  res.status(404).render("404", { pageTitle: "Not Found" });
 });
 
-app.get("/projects", async (request, response) => {
-  try {
-    const projects = await getAllProjects();
-    response.render("projects", { pageTitle: "Projects", projects });
-  } catch (error) {
-    console.error("Error loading projects:", error);
-    response.status(500).send("Unable to load projects.");
-  }
-});
-
-app.get("/categories", async (request, response) => {
-  try {
-    const categories = await getAllCategories();
-    response.render("categories", { pageTitle: "Categories", categories });
-  } catch (error) {
-    console.error("Error loading categories:", error);
-    response.status(500).send("Unable to load categories.");
-  }
+// generic error handler
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err);
+  res.status(500).render("500", { pageTitle: "Server Error" });
 });
 
 const startServer = async () => {

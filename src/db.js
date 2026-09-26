@@ -5,6 +5,7 @@ const { Pool } = pg;
 
 // Validate DATABASE_URL early and provide a clear diagnostic message when missing
 const dbUrl = process.env.DATABASE_URL;
+let pool;
 if (!dbUrl || typeof dbUrl !== "string" || dbUrl.trim() === "") {
   const message =
     "Missing or invalid DATABASE_URL environment variable.\n" +
@@ -13,8 +14,8 @@ if (!dbUrl || typeof dbUrl !== "string" || dbUrl.trim() === "") {
 
   console.error(message);
 
-  // Export a dummy pool object that fails queries with a clear error message.
-  const dummy = {
+  // Dummy pool that fails queries with a clear error message.
+  pool = {
     query: async () => {
       throw new Error(message);
     },
@@ -22,13 +23,11 @@ if (!dbUrl || typeof dbUrl !== "string" || dbUrl.trim() === "") {
       throw new Error(message);
     },
   };
-
-  export default dummy;
 } else {
-  const pool = new Pool({
+  pool = new Pool({
     connectionString: dbUrl,
     ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
   });
-
-  export default pool;
 }
+
+export default pool;

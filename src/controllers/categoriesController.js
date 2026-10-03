@@ -5,8 +5,7 @@ import {
   getProjectsByCategoryId,
   createCategory,
   updateCategory,
-  getCategoriesForAssignment,
-  assignCategoriesToProject,
+  updateProjectCategories,
 } from "../models/categories.js";
 
 import { getProjectById } from "../models/projects.js";

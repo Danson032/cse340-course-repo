@@ -35,7 +35,7 @@
         <% } %>
 
 
-          <form action="/project/<%= project.project_id %>/assign-category" method="POST" class="dataForm">
+          <form action="/assign-categories/<%= project.project_id %>" method="POST" class="dataForm">
 
             <fieldset>
 
@@ -56,9 +56,12 @@
                     <div class="formField">
 
                       <label>
-                        <input type="checkbox" name="category_ids" value="<%= category.category_id %>"
-                          <%=category.assigned ? "checked" : "" %>
-                        >
+                        <input
+                          type="checkbox"
+                          name="category_ids"
+                          value="<%= category.category_id %>"
+                          <%= selectedCategoryIds.includes(category.category_id) ? "checked" : "" %>
+                        />
 
                         <%= category.category_name %>
 

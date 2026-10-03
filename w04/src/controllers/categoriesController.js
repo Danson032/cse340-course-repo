@@ -1,6 +1,7 @@
 import {
   getAllCategories,
   getCategoryById,
+  getCategoriesByProjectId,
   getProjectsByCategoryId,
   createCategory,
   updateCategory,

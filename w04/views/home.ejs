@@ -1,0 +1,34 @@
+<%- include("header", { pageTitle: pageTitle }) %>
+  <main class="pageContent">
+      <section class="hero" aria-labelledby="homeHeading">
+        <div class="heroCopy">
+          <p class="eyebrow">Neighbors helping neighbors</p>
+          <h1 id="homeHeading">Turn your time into local impact.</h1>
+          <p class="heroLead">
+            Find meaningful ways to serve, meet people who care, and help build
+            stronger communities together.
+          </p>
+          <div class="heroActions">
+            <a class="button buttonPrimary" href="/projects">Explore projects</a>
+            <a class="button buttonSecondary" href="/organizations">Meet our partners</a>
+          </div>
+        </div>
+        <div class="heroImageWrap">
+          <img
+            class="heroImage"
+            src="/images/cse340-service-network.png"
+            alt="CSE 340 Service Network logo"
+          />
+        </div>
+      </section>
+
+      <section class="introSection" aria-labelledby="missionHeading">
+        <p class="eyebrow">Our mission</p>
+        <h2 id="missionHeading">Service starts with one good opportunity.</h2>
+        <p>
+          The CSE 340 Service Network connects volunteers with trusted
+          organizations and practical projects that make a visible difference.
+        </p>
+      </section>
+    </main>
+<%- include("footer") %>

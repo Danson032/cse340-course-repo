@@ -1,0 +1,75 @@
+<%- include("header", { pageTitle: pageTitle }) %>
+
+<main class="pageContent">
+  <section class="formPage" aria-labelledby="editProjectHeading">
+    <p class="eyebrow">Service Projects</p>
+    <h1 id="editProjectHeading">Edit Service Project</h1>
+    <p>Update the project information, organization, or categories.</p>
+
+    <% if (errors && errors.length) { %>
+      <div class="formErrors" role="alert">
+        <h2>Please correct the following:</h2>
+        <ul>
+          <% errors.forEach((error) => { %><li><%= error %></li><% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form action="/edit-project/<%= project.project_id %>" method="POST" class="dataForm">
+      <div class="formField">
+        <label for="project_name">Project Name</label>
+        <input id="project_name" name="project_name" type="text"
+          value="<%= project.project_name %>" required maxlength="255" />
+      </div>
+
+      <div class="formField">
+        <label for="project_description">Description</label>
+        <textarea id="project_description" name="project_description"
+          required maxlength="5000" rows="6"><%= project.project_description %></textarea>
+      </div>
+
+      <div class="formField">
+        <label for="project_date">Project Date</label>
+        <input id="project_date" name="project_date" type="date"
+          value="<%= project.project_date %>" />
+      </div>
+
+      <div class="formField">
+        <label for="location">Location</label>
+        <input id="location" name="location" type="text"
+          value="<%= project.location %>" required maxlength="255" />
+      </div>
+
+      <div class="formField">
+        <label for="organization_id">Organization</label>
+        <select id="organization_id" name="organization_id" required>
+          <option value="">Select an organization</option>
+          <% organizations.forEach((organization) => { %>
+            <option value="<%= organization.organization_id %>"
+              <%= Number(project.organization_id) === organization.organization_id ? "selected" : "" %>>
+              <%= organization.organization_name %>
+            </option>
+          <% }) %>
+        </select>
+      </div>
+
+      <fieldset class="formFieldset">
+        <legend>Categories</legend>
+        <% categories.forEach((category) => { %>
+          <label class="checkOption">
+            <input type="checkbox" name="category_ids" value="<%= category.category_id %>"
+              <%= selectedCategoryIds.includes(category.category_id) ? "checked" : "" %> />
+            <%= category.category_name %>
+          </label>
+        <% }) %>
+      </fieldset>
+
+      <div class="formActions">
+        <button class="button buttonPrimary" type="submit">Save Changes</button>
+        <a class="button buttonSecondary" href="/project/<%= project.project_id %>">Cancel</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<%- include("footer") %>

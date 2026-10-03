@@ -1,0 +1,69 @@
+<%- include("header", { pageTitle: pageTitle }) %>
+
+    <main class="pageContent">
+
+        <section class="pageIntro" aria-labelledby="projectHeading">
+
+            <p class="eyebrow">Project</p>
+
+            <h1 id="projectHeading">
+                <%= project.project_name %>
+            </h1>
+
+            <p>
+                <%= project.project_description %>
+            </p>
+
+        </section>
+
+        <section class="projectDetails">
+
+            <p>
+                <strong>Date:</strong>
+                <%= project.project_date_display %>
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                <%= project.location %>
+            </p>
+
+            <p>
+                <strong>Partner:</strong>
+
+                <a href="/organization/<%= project.organization_id %>">
+                    <%= project.organization_name %>
+                </a>
+            </p>
+
+            <p class="heroActions">
+                <a class="button buttonSecondary" href="/edit-project/<%= project.project_id %>">
+                    Edit Project
+                </a>
+            </p>
+
+            <p class="heroActions">
+                <a class="button buttonSecondary" href="/assign-categories/<%= project.project_id %>">
+                    Assign Categories
+                </a>
+            </p>
+
+            <div class="categoryTags" aria-label="Project categories">
+
+                <strong>Categories:</strong>
+
+                <% categories.forEach((category)=> { %>
+
+                    <a class="categoryTag" href="/category/<%= category.category_id %>">
+                        <%= category.category_name %>
+                    </a>
+
+                    <% }); %>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <%- include("footer") %>

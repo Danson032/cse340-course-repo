@@ -1,0 +1,31 @@
+{
+  "name": "cse340-course-repo-1",
+  "version": "1.0.0",
+  "description": "hello I am testing if everyting is working well",
+  "homepage": "https://github.com/Danson032/cse340-course-repo#readme",
+  "bugs": {
+    "url": "https://github.com/Danson032/cse340-course-repo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Danson032/cse340-course-repo.git"
+  },
+  "license": "ISC",
+  "author": "danson",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node server.js",
+    "db:setup": "node scripts/setup-db.js"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.0",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

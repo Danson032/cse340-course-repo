@@ -1,0 +1,81 @@
+<%- include("header", { pageTitle: pageTitle }) %>
+
+    <main class="pageContent">
+
+        <section class="pageIntro" aria-labelledby="organizationHeading">
+
+            <p class="eyebrow">Partner</p>
+
+            <h1 id="organizationHeading">
+                <%= organization.organization_name %>
+            </h1>
+
+            <p>
+                <%= organization.organization_description %>
+            </p>
+
+            <p class="heroActions">
+                <a class="button buttonSecondary" href="/edit-organization/<%= organization.organization_id %>">
+                    Edit Organization
+                </a>
+            </p>
+
+            <p>
+                <a href="<%= organization.website %>" target="_blank" rel="noopener">
+                    <%= organization.website %>
+                </a>
+
+                |
+
+                <a href="mailto:<%= organization.email %>">
+                    <%= organization.email %>
+                </a>
+            </p>
+
+        </section>
+
+        <section class="projectGrid" aria-label="Organization projects">
+
+            <% if (projects.length===0) { %>
+
+                <p>No projects found for this organization.</p>
+
+                <% } %>
+
+                    <% projects.forEach((project)=> { %>
+
+                        <article class="projectCard">
+
+                            <p class="projectTag">
+                                <%= organization.organization_name %>
+                            </p>
+
+                            <h2>
+                                <a href="/project/<%= project.project_id %>">
+                                    <%= project.project_name %>
+                                </a>
+                            </h2>
+
+                            <p>
+                                <%= project.project_description %>
+                            </p>
+
+                            <p>
+                                <strong>Date:</strong>
+                                <%= project.project_date ? new Date(project.project_date).toDateString() : "TBA" %>
+                            </p>
+
+                            <p>
+                                <strong>Location:</strong>
+                                <%= project.location %>
+                            </p>
+
+                        </article>
+
+                        <% }); %>
+
+        </section>
+
+    </main>
+
+    <%- include("footer") %>

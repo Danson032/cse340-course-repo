@@ -1,0 +1,71 @@
+<%- include("header", { pageTitle: pageTitle }) %>
+
+    <main class="pageContent">
+
+        <section class="pageIntro" aria-labelledby="categoryHeading">
+
+            <p class="eyebrow">Category</p>
+
+            <h1 id="categoryHeading">
+                <%= category.category_name %>
+            </h1>
+
+            <p>
+                Service projects in this category.
+            </p>
+
+            <p class="heroActions">
+                <a class="button buttonSecondary" href="/edit-category/<%= category.category_id %>">
+                    Edit Category
+                </a>
+            </p>
+
+        </section>
+
+        <section class="projectGrid" aria-label="Projects in category">
+
+            <% if (projects.length===0) { %>
+
+                <p>No projects found for this category.</p>
+
+                <% } %>
+
+                    <% projects.forEach((project)=> { %>
+
+                        <article class="projectCard">
+
+                            <p class="projectTag">
+                                <a href="/organization/<%= project.organization_id %>">
+                                    <%= project.organization_name %>
+                                </a>
+                            </p>
+
+                            <h2>
+                                <a href="/project/<%= project.project_id %>">
+                                    <%= project.project_name %>
+                                </a>
+                            </h2>
+
+                            <p>
+                                <%= project.project_description %>
+                            </p>
+
+                            <p>
+                                <strong>Date:</strong>
+                                <%= project.project_date ? new Date(project.project_date).toDateString() : "TBA" %>
+                            </p>
+
+                            <p>
+                                <strong>Location:</strong>
+                                <%= project.location %>
+                            </p>
+
+                        </article>
+
+                        <% }); %>
+
+        </section>
+
+    </main>
+
+    <%- include("footer") %>

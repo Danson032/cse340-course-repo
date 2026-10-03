@@ -1,40 +1,94 @@
 <%- include("header", { pageTitle: pageTitle }) %>
 
-<main class="pageContent">
-  <section class="formPage" aria-labelledby="assignCategoriesHeading">
-    <p class="eyebrow">Service Project</p>
-    <h1 id="assignCategoriesHeading">Assign Categories</h1>
-    <p>Choose the categories that apply to <strong><%= project.project_name %></strong>.</p>
+  <main class="pageContent">
 
-    <% if (errors && errors.length) { %>
-      <div class="formErrors" role="alert">
-        <h2>Please correct the following:</h2>
-        <ul><% errors.forEach((error) => { %><li><%= error %></li><% }) %></ul>
-      </div>
-    <% } %>
+    <section class="formPage" aria-labelledby="assignCategoryHeading">
 
-    <form action="/assign-categories/<%= project.project_id %>" method="POST" class="dataForm">
-      <fieldset class="formFieldset">
-        <legend>Project Categories</legend>
-        <% categories.forEach((category) => { %>
-          <label class="checkOption">
-            <input
-              type="checkbox"
-              name="category_ids"
-              value="<%= category.category_id %>"
-              <%= selectedCategoryIds.includes(category.category_id) ? "checked" : "" %>
-            />
-            <%= category.category_name %>
-          </label>
-        <% }) %>
-      </fieldset>
+      <p class="eyebrow">Project Categories</p>
 
-      <div class="formActions">
-        <button class="button buttonPrimary" type="submit">Save Categories</button>
-        <a class="button buttonSecondary" href="/project/<%= project.project_id %>">Cancel</a>
-      </div>
-    </form>
-  </section>
-</main>
+      <h1 id="assignCategoryHeading">
+        Assign Categories
+      </h1>
 
-<%- include("footer") %>
+      <h2>
+        <%= project.project_name %>
+      </h2>
+
+      <p>
+        Select the categories that apply to this project.
+      </p>
+
+      <% if (errors && errors.length> 0) { %>
+        <div class="formErrors" role="alert" aria-labelledby="categoryErrorsHeading">
+          <h2 id="categoryErrorsHeading">
+            Please correct the following:
+          </h2>
+
+          <ul>
+            <% errors.forEach((error)=> { %>
+              <li>
+                <%= error %>
+              </li>
+              <% }) %>
+          </ul>
+        </div>
+        <% } %>
+
+
+          <form action="/project/<%= project.project_id %>/assign-category" method="POST" class="dataForm">
+
+            <fieldset>
+
+              <legend>
+                Project Categories
+              </legend>
+
+              <% if (categories.length===0) { %>
+
+                <p>
+                  No categories are available.
+                </p>
+
+                <% } else { %>
+
+                  <% categories.forEach((category)=> { %>
+
+                    <div class="formField">
+
+                      <label>
+                        <input type="checkbox" name="category_ids" value="<%= category.category_id %>"
+                          <%=category.assigned ? "checked" : "" %>
+                        >
+
+                        <%= category.category_name %>
+
+                      </label>
+
+                    </div>
+
+                    <% }) %>
+
+                      <% } %>
+
+            </fieldset>
+
+
+            <div class="formActions">
+
+              <button class="button buttonPrimary" type="submit">
+                Save Categories
+              </button>
+
+              <a class="button buttonSecondary" href="/project/<%= project.project_id %>">
+                Cancel
+              </a>
+
+            </div>
+
+          </form>
+
+    </section>
+
+  </main>
+
+  <%- include("footer") %>

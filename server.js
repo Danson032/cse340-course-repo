@@ -3,9 +3,10 @@ import "dotenv/config";
 import { fileURLToPath } from "url";
 import path from "path";
 
-import categoriesRouter from "./src/routes/categories.js";
-import organizationsRouter from "./src/routes/organizations.js";
-import projectsRouter from "./src/routes/projects.js";
+import categoriesRouter from "./w04/src/routes/categories.js";
+import organizationsRouter from "./w04/src/routes/organizations.js";
+import projectsRouter from "./w04/src/routes/projects.js";
+import { flashMiddleware } from "./w04/src/flash.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,10 +15,12 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+app.use(flashMiddleware);
+app.use(express.static(path.join(__dirname, "w04", "public")));
 
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "w04", "views"));
 
 app.get("/", (req, res) => {
   res.render("home", {

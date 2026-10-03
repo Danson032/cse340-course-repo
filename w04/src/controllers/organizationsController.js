@@ -39,12 +39,23 @@ const validateOrganization = (body) => {
     errors.push("Website is required.");
   } else if (organization.website.length > 255) {
     errors.push("Website must not exceed 255 characters.");
+  } else {
+    try {
+      const website = new URL(organization.website);
+      if (website.protocol !== "http:" && website.protocol !== "https:") {
+        errors.push("Website must use http or https.");
+      }
+    } catch {
+      errors.push("Website must be a valid URL.");
+    }
   }
 
   if (!organization.email) {
     errors.push("Email is required.");
   } else if (organization.email.length > 255) {
     errors.push("Email must not exceed 255 characters.");
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(organization.email)) {
+    errors.push("Email must be a valid email address.");
   }
 
   return { organization, errors };

@@ -1,43 +1,47 @@
 <%- include("header", { pageTitle: pageTitle }) %>
 
-<main class="pageContent">
-  <section class="formPage" aria-labelledby="newCategoryHeading">
-    <p class="eyebrow">Categories</p>
-    <h1 id="newCategoryHeading">Create New Category</h1>
-    <p>Add a category for organizing service projects.</p>
+  <main class="pageContent">
+    <section class="formPage" aria-labelledby="newCategoryHeading">
+      <p class="eyebrow">Categories</p>
+      <h1 id="newCategoryHeading">Create New Category</h1>
+      <p>Add a category for organizing service projects.</p>
 
-    <% if (errors && errors.length > 0) { %>
-      <div class="formErrors" role="alert" aria-labelledby="categoryErrorsHeading">
-        <h2 id="categoryErrorsHeading">Please correct the following:</h2>
-        <ul>
-          <% errors.forEach((error) => { %>
-            <li><%= error %></li>
-          <% }) %>
-        </ul>
-      </div>
-    <% } %>
+      <% if (errors && errors.length> 0) { %>
+        <div class="formErrors" role="alert" aria-labelledby="categoryErrorsHeading">
+          <h2 id="categoryErrorsHeading">Please correct the following:</h2>
+          <ul>
+            <% errors.forEach((error)=> { %>
+              <li>
+                <%= error %>
+              </li>
+              <% }) %>
+          </ul>
+        </div>
+        <% } %>
 
-    <form action="/new-category" method="POST" class="dataForm">
-      <div class="formField">
-        <label for="category_name">Category Name</label>
-        <input
-          type="text"
-          id="category_name"
-          name="category_name"
-          value="<%= categoryName %>"
-          required
-          maxlength="100"
-          autocomplete="off"
-        />
-        <p class="fieldHelp">Required. Maximum 100 characters.</p>
-      </div>
+          <form action="/new-category" method="POST" class="dataForm">
+            <div class="formField">
+              <label for="category_name">Category Name</label>
 
-      <div class="formActions">
-        <button class="button buttonPrimary" type="submit">Create Category</button>
-        <a class="button buttonSecondary" href="/categories">Cancel</a>
-      </div>
-    </form>
-  </section>
-</main>
+              <input type="text" id="category_name" name="category_name" value="<%= category_name %>" required
+                maxlength="100" autocomplete="off" />
 
-<%- include("footer") %>
+              <p class="fieldHelp">
+                Required. Maximum 100 characters.
+              </p>
+            </div>
+
+            <div class="formActions">
+              <button class="button buttonPrimary" type="submit">
+                Create Category
+              </button>
+
+              <a class="button buttonSecondary" href="/categories">
+                Cancel
+              </a>
+            </div>
+          </form>
+    </section>
+  </main>
+
+  <%- include("footer") %>

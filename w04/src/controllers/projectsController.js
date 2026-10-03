@@ -49,8 +49,14 @@ const validateProject = (body) => {
   }
 
   if (project.project_date) {
-    const date = new Date(project.project_date);
-    if (Number.isNaN(date.getTime())) errors.push("Project date must be valid.");
+    const date = new Date(`${project.project_date}T00:00:00Z`);
+    if (
+      !/^\d{4}-\d{2}-\d{2}$/.test(project.project_date) ||
+      Number.isNaN(date.getTime()) ||
+      date.toISOString().slice(0, 10) !== project.project_date
+    ) {
+      errors.push("Project date must be valid.");
+    }
   }
 
   if (!Number.isInteger(project.organization_id) || project.organization_id <= 0) {
@@ -151,18 +157,31 @@ export const createNewProject = async (req, res) => {
   const { project, categoryIds, errors } = validateProject(req.body);
   project.selectedCategoryIds = categoryIds;
 
-  if (errors.length) {
-    return renderProjectForm(
-      res,
-      "new-project",
-      "Create New Service Project",
-      project,
-      errors,
-      400,
-    );
-  }
-
   try {
+    if (!errors.length) {
+      const [organizations, categories] = await Promise.all([
+        getAllOrganizations(),
+        getAllCategories(),
+      ]);
+      if (!organizations.some((organization) => organization.organization_id === project.organization_id)) {
+        errors.push("Select a valid organization.");
+      }
+      if (categoryIds.some((id) => !categories.some((category) => category.category_id === id))) {
+        errors.push("Select only valid categories.");
+      }
+    }
+
+    if (errors.length) {
+      return await renderProjectForm(
+        res,
+        "new-project",
+        "Create New Service Project",
+        project,
+        errors,
+        400,
+      );
+    }
+
     const projectId = await createProject(project, categoryIds);
     res.flash("Project saved successfully.");
     return res.redirect(`/project/${projectId}`);
@@ -217,18 +236,31 @@ export const editProject = async (req, res) => {
   project.project_id = projectId;
   project.selectedCategoryIds = categoryIds;
 
-  if (errors.length) {
-    return renderProjectForm(
-      res,
-      "edit-project",
-      "Edit Service Project",
-      project,
-      errors,
-      400,
-    );
-  }
-
   try {
+    if (!errors.length) {
+      const [organizations, categories] = await Promise.all([
+        getAllOrganizations(),
+        getAllCategories(),
+      ]);
+      if (!organizations.some((organization) => organization.organization_id === project.organization_id)) {
+        errors.push("Select a valid organization.");
+      }
+      if (categoryIds.some((id) => !categories.some((category) => category.category_id === id))) {
+        errors.push("Select only valid categories.");
+      }
+    }
+
+    if (errors.length) {
+      return await renderProjectForm(
+        res,
+        "edit-project",
+        "Edit Service Project",
+        project,
+        errors,
+        400,
+      );
+    }
+
     const updated = await updateProject(projectId, project, categoryIds);
 
     if (!updated) {

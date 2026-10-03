@@ -65,7 +65,7 @@ export const showNewCategory = (req, res) => {
   res.render("new-category", {
     pageTitle: "Create New Category",
     errors: [],
-    categoryName: "",
+    category_name: "",
   });
 };
 
@@ -81,7 +81,7 @@ export const createNewCategory = async (req, res) => {
     return res.status(400).render("new-category", {
       pageTitle: "Create New Category",
       errors: [errorMessage],
-      categoryName,
+      category_name: categoryName,
     });
   }
 
@@ -96,7 +96,7 @@ export const createNewCategory = async (req, res) => {
       return res.status(400).render("new-category", {
         pageTitle: "Create New Category",
         errors: ["A category with that name already exists."],
-        categoryName,
+        category_name: categoryName,
       });
     }
 
@@ -230,13 +230,13 @@ export const assignCategories = async (req, res) => {
     const validIds = new Set(categories.map((category) => category.category_id));
     const invalid = categoryIds.some((id) => !validIds.has(id));
 
-    if (invalid || categoryIds.length === 0) {
+    if (invalid) {
       return res.status(400).render("assign-categories", {
         pageTitle: `Assign Categories - ${project.project_name}`,
         project,
         categories,
         selectedCategoryIds: categoryIds,
-        errors: ["Select at least one valid category."],
+        errors: ["Select only valid categories."],
       });
     }
 

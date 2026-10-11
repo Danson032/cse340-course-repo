@@ -16,10 +16,13 @@ export function showRegister(req, res) {
 
 export async function register(req, res, next) {
     try {
-        const name = (req.body.name || "").trim();
-        const email = (req.body.email || "").trim().toLowerCase();
-        const password = req.body.password || "";
-        const confirmPassword = req.body.confirmPassword || "";
+        const body = req.body || {};
+        const name = typeof body.name === "string" ? body.name.trim() : "";
+        const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
+        const password = typeof body.password === "string" ? body.password : "";
+        const confirmPassword = typeof body.confirmPassword === "string"
+            ? body.confirmPassword
+            : "";
 
         const formData = { name, email };
         let error = null;
@@ -56,8 +59,8 @@ export async function register(req, res, next) {
                 title: "Register",
                 error: "An account with that email already exists.",
                 formData: {
-                    name: (req.body.name || "").trim(),
-                    email: (req.body.email || "").trim(),
+                    name: typeof req.body?.name === "string" ? req.body.name.trim() : "",
+                    email: typeof req.body?.email === "string" ? req.body.email.trim() : "",
                 },
             });
         }
@@ -80,8 +83,9 @@ export function showLogin(req, res) {
 
 export async function login(req, res, next) {
     try {
-        const email = (req.body.email || "").trim();
-        const password = req.body.password || "";
+        const body = req.body || {};
+        const email = typeof body.email === "string" ? body.email.trim() : "";
+        const password = typeof body.password === "string" ? body.password : "";
 
         if (!email || !password) {
             return res.status(400).render("login", {

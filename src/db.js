@@ -11,12 +11,15 @@ if (!databaseUrl) {
   );
 }
 
+const databaseHost = new URL(databaseUrl).hostname.toLowerCase();
+const isLocalDatabase =
+  !databaseHost ||
+  ["localhost", "127.0.0.1", "::1", "[::1]"].includes(databaseHost) ||
+  databaseHost.endsWith(".localhost");
+
 const pool = new Pool({
   connectionString: databaseUrl,
-  ssl:
-    process.env.NODE_ENV === "production"
-      ? { rejectUnauthorized: false }
-      : false,
+  ssl: isLocalDatabase ? false : { rejectUnauthorized: false },
 });
 
 export default pool;

@@ -12,9 +12,11 @@
         Browse service opportunities by the kind of impact you want to make.
       </p>
 
-      <p class="heroActions">
-        <a class="button buttonPrimary" href="/new-category">Create New Category</a>
-      </p>
+      <% if (typeof currentUser !== "undefined" && currentUser && currentUser.role_name === "admin") { %>
+        <p class="heroActions">
+          <a class="button buttonPrimary" href="/new-category">Create New Category</a>
+        </p>
+      <% } %>
     </section>
 
     <section class="categoryGrid" aria-label="Service categories">

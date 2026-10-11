@@ -36,31 +36,35 @@
                 </a>
             </p>
 
-            <p class="heroActions">
-                <a class="button buttonSecondary" href="/edit-project/<%= project.project_id %>">
-                    Edit Project
-                </a>
-            </p>
 
-            <p class="heroActions">
-                <a class="button buttonSecondary" href="/assign-categories/<%= project.project_id %>">
-                    Assign Categories
-                </a>
-            </p>
-
-            <div class="categoryTags" aria-label="Project categories">
-
-                <strong>Categories:</strong>
-
-                <% categories.forEach((category)=> { %>
-
-                    <a class="categoryTag" href="/category/<%= category.category_id %>">
-                        <%= category.category_name %>
+            <% if (typeof currentUser !=="undefined" && currentUser && currentUser.role_name==="admin" ) { %>
+                <p class="heroActions">
+                    <a class="button buttonSecondary" href="/edit-project/<%= project.project_id %>">
+                        Edit Project
                     </a>
+                </p>
 
-                    <% }); %>
+                <p class="heroActions">
+                    <a class="button buttonSecondary" href="/assign-categories/<%= project.project_id %>">
+                        Assign Categories
+                    </a>
+                </p>
+                <% } %>
 
-            </div>
+
+                    <div class="categoryTags" aria-label="Project categories">
+
+                        <strong>Categories:</strong>
+
+                        <% categories.forEach((category)=> { %>
+
+                            <a class="categoryTag" href="/category/<%= category.category_id %>">
+                                <%= category.category_name %>
+                            </a>
+
+                            <% }); %>
+
+                    </div>
 
         </section>
 

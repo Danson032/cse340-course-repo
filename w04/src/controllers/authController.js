@@ -66,12 +66,17 @@ export async function register(req, res, next) {
     }
 }
 
+
 export function showLogin(req, res) {
     res.render("login", {
         title: "Login",
-        error: null,
+        error: req.query.error === "forbidden"
+            ? "Please log in to access that page."
+            : null,
+        query: req.query,
     });
 }
+
 
 export async function login(req, res, next) {
     try {

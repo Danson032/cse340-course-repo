@@ -14,11 +14,15 @@
                 Service projects in this category.
             </p>
 
-            <p class="heroActions">
-                <a class="button buttonSecondary" href="/edit-category/<%= category.category_id %>">
-                    Edit Category
-                </a>
-            </p>
+
+            <% if (typeof currentUser !=="undefined" && currentUser && currentUser.role_name==="admin" ) { %>
+                <p class="heroActions">
+                    <a class="button buttonSecondary" href="/edit-category/<%= category.category_id %>">
+                        Edit Category
+                    </a>
+                </p>
+                <% } %>
+
 
         </section>
 

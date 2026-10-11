@@ -1,4 +1,6 @@
+
 import express from "express";
+
 import {
   listCategories,
   showCategory,
@@ -10,18 +12,24 @@ import {
   assignCategories,
 } from "../controllers/categoriesController.js";
 
+import { requireRole } from "../middleware/auth.js";
+
 const router = express.Router();
 
+// Public routes
 router.get("/categories", listCategories);
 router.get("/category/:id", showCategory);
 
-router.get("/new-category", showNewCategory);
-router.post("/new-category", createNewCategory);
+// Admin-only category creation
+router.get("/new-category", requireRole("admin"), showNewCategory);
+router.post("/new-category", requireRole("admin"), createNewCategory);
 
-router.get("/edit-category/:id", showEditCategory);
-router.post("/edit-category/:id", editCategory);
+// Admin-only category editing
+router.get("/edit-category/:id", requireRole("admin"), showEditCategory);
+router.post("/edit-category/:id", requireRole("admin"), editCategory);
 
-router.get("/assign-categories/:id", showAssignCategories);
-router.post("/assign-categories/:id", assignCategories);
+// Admin-only category assignment
+router.get("/assign-categories/:id", requireRole("admin"), showAssignCategories);
+router.post("/assign-categories/:id", requireRole("admin"), assignCategories);
 
 export default router;

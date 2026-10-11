@@ -14,23 +14,27 @@
                 <%= organization.organization_description %>
             </p>
 
-            <p class="heroActions">
-                <a class="button buttonSecondary" href="/edit-organization/<%= organization.organization_id %>">
-                    Edit Organization
-                </a>
-            </p>
 
-            <p>
-                <a href="<%= organization.website %>" target="_blank" rel="noopener">
-                    <%= organization.website %>
-                </a>
+            <% if (typeof currentUser !=="undefined" && currentUser && currentUser.role_name==="admin" ) { %>
+                <p class="heroActions">
+                    <a class="button buttonSecondary" href="/edit-organization/<%= organization.organization_id %>">
+                        Edit Organization
+                    </a>
+                </p>
+                <% } %>
 
-                |
 
-                <a href="mailto:<%= organization.email %>">
-                    <%= organization.email %>
-                </a>
-            </p>
+                    <p>
+                        <a href="<%= organization.website %>" target="_blank" rel="noopener">
+                            <%= organization.website %>
+                        </a>
+
+                        |
+
+                        <a href="mailto:<%= organization.email %>">
+                            <%= organization.email %>
+                        </a>
+                    </p>
 
         </section>
 

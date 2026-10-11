@@ -15,9 +15,13 @@
         time, skills, and interests.
       </p>
 
-      <p class="heroActions">
-        <a class="button buttonPrimary" href="/new-organization">Create New Organization</a>
-      </p>
+
+      <% if (typeof currentUser !=="undefined" && currentUser && currentUser.role_name==="admin" ) { %>
+        <p class="heroActions">
+          <a class="button buttonPrimary" href="/new-organization">Create New Organization</a>
+        </p>
+        <% } %>
+
 
     </section>
 

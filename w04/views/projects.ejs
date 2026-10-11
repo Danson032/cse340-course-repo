@@ -14,9 +14,13 @@
         Choose a practical way to show up for your community.
       </p>
 
-      <p class="heroActions">
-        <a class="button buttonPrimary" href="/new-project">Create New Service Project</a>
-      </p>
+
+      <% if (typeof currentUser !=="undefined" && currentUser && currentUser.role_name==="admin" ) { %>
+        <p class="heroActions">
+          <a class="button buttonPrimary" href="/new-project">Create New Service Project</a>
+        </p>
+        <% } %>
+
 
     </section>
 

@@ -1,4 +1,6 @@
+
 import express from "express";
+
 import {
   listProjects,
   showProject,
@@ -8,15 +10,20 @@ import {
   editProject,
 } from "../controllers/projectsController.js";
 
+import { requireRole } from "../middleware/auth.js";
+
 const router = express.Router();
 
+// Public routes
 router.get("/projects", listProjects);
 router.get("/project/:id", showProject);
 
-router.get("/new-project", showNewProject);
-router.post("/new-project", createNewProject);
+// Admin-only project creation
+router.get("/new-project", requireRole("admin"), showNewProject);
+router.post("/new-project", requireRole("admin"), createNewProject);
 
-router.get("/edit-project/:id", showEditProject);
-router.post("/edit-project/:id", editProject);
+// Admin-only project editing
+router.get("/edit-project/:id", requireRole("admin"), showEditProject);
+router.post("/edit-project/:id", requireRole("admin"), editProject);
 
 export default router;

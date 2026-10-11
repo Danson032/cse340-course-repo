@@ -1,0 +1,43 @@
+<%- include("header") %>
+
+    <main class="container">
+        <h1>Registered Users</h1>
+        <p>Only administrators should be able to access this page.</p>
+
+        <% if (users.length===0) { %>
+            <p>No registered users found.</p>
+            <% } else { %>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Registered</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach((user)=> { %>
+                                <tr>
+                                    <td>
+                                        <%= user.name %>
+                                    </td>
+                                    <td>
+                                        <%= user.email %>
+                                    </td>
+                                    <td>
+                                        <%= user.role_name %>
+                                    </td>
+                                    <td>
+                                        <%= new Date(user.created_at).toLocaleDateString() %>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+                <% } %>
+    </main>
+
+    <%- include("footer") %>

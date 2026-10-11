@@ -1,0 +1,33 @@
+<%- include("header") %>
+
+    <main class="container">
+        <h1>Dashboard</h1>
+
+        <% if (forbidden) { %>
+            <p class="error" role="alert">
+                You do not have permission to access that page.
+            </p>
+            <% } %>
+
+                <p>Welcome, <strong>
+                        <%= currentUser.name %>
+                    </strong>!</p>
+                <p>Email: <%= currentUser.email %>
+                </p>
+                <p>Role: <%= currentUser.role_name %>
+                </p>
+
+                <% if (currentUser.role_name==="admin" ) { %>
+                    <h2>Administration</h2>
+                    <ul>
+                        <li><a href="/users">View Registered Users</a></li>
+                        <li><a href="/organizations">Manage Organizations</a></li>
+                        <li><a href="/projects">Manage Projects</a></li>
+                        <li><a href="/categories">Manage Categories</a></li>
+                    </ul>
+                    <% } else { %>
+                        <p>You are logged in as a regular user.</p>
+                        <% } %>
+    </main>
+
+    <%- include("footer") %>

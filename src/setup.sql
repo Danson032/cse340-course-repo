@@ -4,6 +4,7 @@
 -- ============================================
 
 -- Drop existing tables in the correct order
+DROP TABLE IF EXISTS project_volunteers;
 DROP TABLE IF EXISTS project_categories;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS projects;
@@ -71,6 +72,23 @@ CREATE TABLE project_categories (
     FOREIGN KEY (category_id)
     REFERENCES categories(category_id)
     ON DELETE CASCADE
+);
+
+
+-- ============================================
+-- PROJECT VOLUNTEERS JUNCTION TABLE
+-- Requires users from src/auth-schema.sql to exist first.
+-- ============================================
+
+CREATE TABLE project_volunteers (
+  project_id INTEGER NOT NULL,
+  user_id INTEGER NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (project_id, user_id),
+  CONSTRAINT fk_project_volunteers_project
+    FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE,
+  CONSTRAINT fk_project_volunteers_user
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 

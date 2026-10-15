@@ -52,6 +52,22 @@
                 <% } %>
 
 
+                    <% if (typeof currentUser !== "undefined" && currentUser) { %>
+                        <section class="volunteerActions" aria-labelledby="volunteerHeading">
+                            <h2 id="volunteerHeading">Volunteer for this project</h2>
+                            <% if (isVolunteering) { %>
+                                <p>You are volunteering for this project.</p>
+                                <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
+                                    <button class="button buttonSecondary" type="submit">Remove Me as Volunteer</button>
+                                </form>
+                            <% } else { %>
+                                <form action="/project/<%= project.project_id %>/volunteer" method="POST">
+                                    <button class="button" type="submit">Volunteer for This Project</button>
+                                </form>
+                            <% } %>
+                        </section>
+                    <% } %>
+
                     <div class="categoryTags" aria-label="Project categories">
 
                         <strong>Categories:</strong>

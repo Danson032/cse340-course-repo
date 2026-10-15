@@ -4,6 +4,7 @@ import {
   authenticateUser,
   getAllUsers,
 } from "../models/user.js";
+import { getVolunteeredProjectsByUserId } from "../models/projects.js";
 
 export function showUserRegistrationForm(req, res) {
   return res.render("register", {
@@ -148,12 +149,22 @@ export function requireRole(requiredRole) {
   };
 }
 
-export function showDashboard(req, res) {
-  return res.render("dashboard", {
-    title: "Dashboard",
-    currentUser: req.session.user,
-    forbidden: req.query.error === "forbidden",
-  });
+export async function showDashboard(req, res, next) {
+  try {
+    const currentUser = req.session.user;
+    const volunteeredProjects = await getVolunteeredProjectsByUserId(
+      currentUser.user_id,
+    );
+
+    return res.render("dashboard", {
+      title: "Dashboard",
+      currentUser,
+      volunteeredProjects,
+      forbidden: req.query.error === "forbidden",
+    });
+  } catch (error) {
+    return next(error);
+  }
 }
 
 export async function listUsers(req, res, next) {

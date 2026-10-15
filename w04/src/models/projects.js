@@ -133,3 +133,12 @@ export const updateProject = async (projectId, project, categoryIds) => {
     client.release();
   }
 };
+
+
+// Volunteer signup operations are shared with the root project model.
+export {
+  addVolunteer,
+  removeVolunteer,
+  isUserVolunteering,
+  getVolunteeredProjectsByUserId,
+} from "../../../src/models/projects.js";

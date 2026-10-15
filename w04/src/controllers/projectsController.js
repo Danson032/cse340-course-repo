@@ -3,6 +3,9 @@ import {
   getProjectById,
   createProject,
   updateProject,
+  addVolunteer,
+  removeVolunteer,
+  isUserVolunteering,
 } from "../models/projects.js";
 import { getCategoriesByProjectId, getAllCategories } from "../models/categories.js";
 import { getAllOrganizations } from "../models/organizations.js";
@@ -118,10 +121,16 @@ export const showProject = async (req, res) => {
       if (!Number.isNaN(date.getTime())) projectDate = date.toDateString();
     }
 
+    const currentUser = req.session?.user || null;
+    const isVolunteering = currentUser
+      ? await isUserVolunteering(projectId, currentUser.user_id)
+      : false;
+
     res.render("project", {
       pageTitle: project.project_name,
       project: { ...project, project_date_display: projectDate },
       categories,
+      isVolunteering,
     });
   } catch (error) {
     console.error("Error loading project:", error);
@@ -271,6 +280,55 @@ export const editProject = async (req, res) => {
     return res.redirect(`/project/${projectId}`);
   } catch (error) {
     console.error("Error updating project:", error);
+    return res.status(500).render("500", { pageTitle: "Server Error" });
+  }
+};
+
+
+// Register the signed-in user as a volunteer for a project.
+export const volunteerForProject = async (req, res) => {
+  const projectId = Number(req.params.id);
+  const userId = req.session?.user?.user_id;
+
+  if (!Number.isInteger(projectId) || projectId <= 0 || !userId) {
+    return res.redirect("/projects");
+  }
+
+  try {
+    const project = await getProjectById(projectId);
+    if (!project) {
+      return res.status(404).render("404", { pageTitle: "Not Found" });
+    }
+
+    await addVolunteer(projectId, userId);
+    if (typeof res.flash === "function") {
+      res.flash("You are now volunteering for this project.");
+    }
+    return res.redirect(`/project/${projectId}`);
+  } catch (error) {
+    console.error("Error signing up as a volunteer:", error);
+    return res.status(500).render("500", { pageTitle: "Server Error" });
+  }
+};
+
+// Remove the signed-in user from a project's volunteer list.
+export const removeVolunteerSignup = async (req, res) => {
+  const projectId = Number(req.params.id);
+  const userId = req.session?.user?.user_id;
+  const returnToDashboard = req.body?.returnTo === "dashboard";
+
+  if (!Number.isInteger(projectId) || projectId <= 0 || !userId) {
+    return res.redirect(returnToDashboard ? "/dashboard" : "/projects");
+  }
+
+  try {
+    await removeVolunteer(projectId, userId);
+    if (typeof res.flash === "function") {
+      res.flash("You have been removed from this project's volunteer list.");
+    }
+    return res.redirect(returnToDashboard ? "/dashboard" : `/project/${projectId}`);
+  } catch (error) {
+    console.error("Error removing volunteer signup:", error);
     return res.status(500).render("500", { pageTitle: "Server Error" });
   }
 };

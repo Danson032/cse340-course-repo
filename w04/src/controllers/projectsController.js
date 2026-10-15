@@ -3,14 +3,12 @@ import {
   getProjectById,
   createProject,
   updateProject,
-} from "../models/projects.js";
-import { getCategoriesByProjectId, getAllCategories } from "../models/categories.js";
-import { getAllOrganizations } from "../models/organizations.js";
-import {
   addVolunteer,
   removeVolunteer,
   isUserVolunteering,
 } from "../models/projects.js";
+import { getCategoriesByProjectId, getAllCategories } from "../models/categories.js";
+import { getAllOrganizations } from "../models/organizations.js";
 
 const getCategoryIds = (value) => {
   const values = Array.isArray(value) ? value : value ? [value] : [];

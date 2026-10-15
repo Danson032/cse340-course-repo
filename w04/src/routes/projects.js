@@ -8,15 +8,19 @@ import {
   createNewProject,
   showEditProject,
   editProject,
+  volunteerForProject,
+  removeVolunteerSignup,
 } from "../controllers/projectsController.js";
 
-import { requireRole } from "../middleware/auth.js";
+import { requireLogin, requireRole } from "../middleware/auth.js";
 
 const router = express.Router();
 
 // Public routes
 router.get("/projects", listProjects);
 router.get("/project/:id", showProject);
+router.post("/project/:id/volunteer", requireLogin, volunteerForProject);
+router.post("/project/:id/unvolunteer", requireLogin, removeVolunteerSignup);
 
 // Admin-only project creation
 router.get("/new-project", requireRole("admin"), showNewProject);

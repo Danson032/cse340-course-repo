@@ -17,6 +17,29 @@
                 <p>Role: <%= currentUser.role_name %>
                 </p>
 
+                <section class="volunteeredProjects" aria-labelledby="volunteeredProjectsHeading">
+                    <h2 id="volunteeredProjectsHeading">My Volunteer Projects</h2>
+                    <% if (!volunteeredProjects || volunteeredProjects.length === 0) { %>
+                        <p>You have not signed up to volunteer for any projects yet.</p>
+                        <p><a href="/projects">Browse service projects</a> to find an opportunity.</p>
+                    <% } else { %>
+                        <ul class="volunteerProjectList">
+                            <% volunteeredProjects.forEach((project) => { %>
+                                <li>
+                                    <h3><a href="/project/<%= project.project_id %>"><%= project.project_name %></a></h3>
+                                    <p><strong>Organization:</strong> <%= project.organization_name %></p>
+                                    <p><strong>Date:</strong> <%= project.project_date ? new Date(project.project_date).toDateString() : "To be announced" %></p>
+                                    <p><strong>Location:</strong> <%= project.location %></p>
+                                    <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
+                                        <input type="hidden" name="returnTo" value="dashboard" />
+                                        <button class="button buttonSecondary" type="submit">Remove Me as Volunteer</button>
+                                    </form>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% } %>
+                </section>
+
                 <% if (currentUser.role_name==="admin" ) { %>
                     <h2>Administration</h2>
                     <ul>

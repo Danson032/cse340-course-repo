@@ -18,7 +18,8 @@
     "dev": "nodemon",
     "start": "node server.js",
     "db:setup": "node scripts/setup-db.js",
-    "db:auth-setup": "node scripts/setup-auth-db.js"
+    "db:auth-setup": "node scripts/setup-auth-db.js",
+    "db:volunteers-setup": "node scripts/setup-volunteers-db.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

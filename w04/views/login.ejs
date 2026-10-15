@@ -13,10 +13,15 @@
                     <p role="status">Registration successful. You can now log in.</p>
                     <% } %>
 
-                        <form action="/login" method="POST">
-                            <div>
-                                <label for="email">Email Address</label>
-                                <input id="email" name="email" type="email" autocomplete="email" required>
+                <% if (typeof query !=="undefined" && query.loggedOut) { %>
+                    <p role="status">You have been logged out.</p>
+                    <% } %>
+
+                <form action="/login" method="POST">
+                    <div>
+                        <label for="email">Email Address</label>
+                        <input id="email" name="email" type="email" autocomplete="email"
+                            value="<%= typeof email !== 'undefined' ? email : '' %>" required>
                             </div>
 
                             <div>

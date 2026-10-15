@@ -1,4 +1,5 @@
 import express from "express";
+import { requireRole } from "../../w04/src/middleware/auth.js";
 
 import {
     listCategories,
@@ -29,10 +30,11 @@ router.get("/category/:id", showCategory);
 // ================================
 // CREATE CATEGORY
 // ================================
-router.get("/new-category", buildNewCategory);
+router.get("/new-category", requireRole("admin"), buildNewCategory);
 
 router.post(
     "/new-category",
+    requireRole("admin"),
     createCategoryController
 );
 
@@ -42,11 +44,13 @@ router.post(
 // ================================
 router.get(
     "/edit-category/:id",
+    requireRole("admin"),
     buildEditCategory
 );
 
 router.post(
     "/edit-category/:id",
+    requireRole("admin"),
     updateCategoryController
 );
 
@@ -58,12 +62,14 @@ router.post(
 // Show assignment page
 router.get(
     "/project/:id/assign-category",
+    requireRole("admin"),
     showAssignCategories
 );
 
 // Save category assignments
 router.post(
     "/project/:id/assign-category",
+    requireRole("admin"),
     updateProjectCategories
 );
 

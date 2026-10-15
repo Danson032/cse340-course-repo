@@ -76,6 +76,7 @@ export function showLoginForm(req, res) {
         ? "You do not have permission to access that page."
         : null,
     query: req.query,
+    email: "",
   });
 }
 
@@ -90,6 +91,7 @@ export async function processLoginForm(req, res, next) {
         title: "Login",
         error: "Please enter your email and password.",
         query: req.query,
+        email,
       });
     }
 
@@ -100,6 +102,7 @@ export async function processLoginForm(req, res, next) {
         title: "Login",
         error: "Invalid email or password.",
         query: req.query,
+        email,
       });
     }
 
@@ -159,6 +162,7 @@ export function showDashboard(req, res) {
 export async function listUsers(req, res, next) {
   try {
     const users = await getAllUsers();
+
     return res.render("users", {
       title: "Registered Users",
       users,

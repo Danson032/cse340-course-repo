@@ -1,25 +1,33 @@
 
 import pool from "./src/db.js";
 
-try {
-    const result = await pool.query(`
-    UPDATE users
-    SET role_id = (
-      SELECT role_id
-      FROM roles
-      WHERE role_name = 'admin'
-    )
-    WHERE LOWER(email) = 'admin@example.com'
-    RETURNING email;
-  `);
+const email = process.argv[2]?.trim().toLowerCase();
+
+if (!email) {
+  console.error("Usage: node promote-admin.js <registered-email>");
+  process.exitCode = 1;
+} else {
+  try {
+    const result = await pool.query(
+      `UPDATE users AS u
+       SET role_id = r.role_id
+       FROM roles AS r
+       WHERE r.role_name = 'admin'
+         AND LOWER(u.email) = $1
+       RETURNING u.email`,
+      [email],
+    );
 
     if (result.rows.length === 0) {
-        console.log("Account not found. Register admin@example.com first.");
+      console.error(`Account not found: ${email}. Register that email first.`);
+      process.exitCode = 1;
     } else {
-        console.log("Administrator role assigned:", result.rows[0].email);
+      console.log("Administrator role assigned:", result.rows[0].email);
     }
-} catch (error) {
+  } catch (error) {
     console.error("Database error:", error.message);
-} finally {
+    process.exitCode = 1;
+  } finally {
     await pool.end();
+  }
 }

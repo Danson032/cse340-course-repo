@@ -5,7 +5,8 @@ import {
   getProjectsByCategoryId,
   createCategory,
   updateCategory,
-  updateProjectCategories,
+  getCategoriesForAssignment,
+  assignCategoriesToProject,
 } from "../models/categories.js";
 
 import { getProjectById } from "../models/projects.js";
@@ -110,7 +111,7 @@ export const createCategoryController = async (req, res) => {
   try {
     await createCategory(category_name);
 
-    req.flash("notice", "Category created successfully.");
+    res.flash("Category created successfully.");
 
     return res.redirect("/categories");
   } catch (error) {
@@ -208,7 +209,7 @@ export const updateCategoryController = async (req, res) => {
       });
     }
 
-    req.flash("notice", "Category updated successfully.");
+    res.flash("Category updated successfully.");
 
     return res.redirect("/categories");
   } catch (error) {
@@ -320,10 +321,7 @@ export const updateProjectCategories = async (req, res) => {
       categoryIds
     );
 
-    req.flash(
-      "notice",
-      "Project categories updated successfully."
-    );
+    res.flash("Project categories updated successfully.");
 
     return res.redirect(`/project/${projectId}`);
   } catch (error) {

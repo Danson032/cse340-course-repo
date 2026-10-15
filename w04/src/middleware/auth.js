@@ -1,22 +1,3 @@
-
-export function requireLogin(req, res, next) {
-    if (req.session?.user) {
-        return next();
-    }
-
-    return res.redirect("/login");
-}
-
-export function requireRole(requiredRole) {
-    return function (req, res, next) {
-        if (!req.session?.user) {
-            return res.redirect("/login");
-        }
-
-        if (req.session.user.role_name !== requiredRole) {
-            return res.redirect("/dashboard?error=forbidden");
-        }
-
-        return next();
-    };
-}
+// Shared authentication middleware used by the organization, project, and category routes.
+// The implementation lives in the required user controller module.
+export { requireLogin, requireRole } from "../controllers/user.js";

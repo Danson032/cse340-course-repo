@@ -1,33 +1,28 @@
-
 import express from "express";
 
 import {
-    showRegister,
-    register,
-    showLogin,
-    login,
-    logout,
-    showDashboard,
-    listUsers,
-} from "../controllers/authController.js";
-
-import {
-    requireLogin,
-    requireRole,
-} from "../middleware/auth.js";
+  showUserRegistrationForm,
+  processUserRegistrationForm,
+  showLoginForm,
+  processLoginForm,
+  processLogout,
+  requireLogin,
+  requireRole,
+  showDashboard,
+  listUsers,
+} from "../controllers/user.js";
 
 const router = express.Router();
 
-router.get("/register", showRegister);
-router.post("/register", register);
+router.get("/register", showUserRegistrationForm);
+router.post("/register", processUserRegistrationForm);
 
-router.get("/login", showLogin);
-router.post("/login", login);
+router.get("/login", showLoginForm);
+router.post("/login", processLoginForm);
 
-router.post("/logout", requireLogin, logout);
+router.post("/logout", requireLogin, processLogout);
 
 router.get("/dashboard", requireLogin, showDashboard);
-
 router.get("/users", requireRole("admin"), listUsers);
 
 export default router;
